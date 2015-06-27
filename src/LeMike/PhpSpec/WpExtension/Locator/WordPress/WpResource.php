@@ -65,12 +65,8 @@ class WpResource implements ResourceInterface
 	 */
 	public function getSpecFilename()
 	{
-		$nsParts   = $this->parts;
-		$classname = array_pop($nsParts);
-		$parts     = array_merge($nsParts, explode('_', $classname));
-
 		return $this->locator->getFullSpecPath().
-		       implode(DIRECTORY_SEPARATOR, $parts).'Spec.php';
+		       implode(DIRECTORY_SEPARATOR, $this->parts).'Spec.php';
 	}
 
 	/**
