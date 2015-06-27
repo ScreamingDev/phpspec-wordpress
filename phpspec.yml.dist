@@ -1,0 +1,7 @@
+extensions: [LeMike\PhpSpec\WpExtension\Extension]
+wp_locator:
+  spec_prefix: 'spec'
+  src_path: 'src'
+  spec_path: 'spec'
+
+formatter.name: pretty
