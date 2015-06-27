@@ -56,14 +56,19 @@ class WpLoader
     }
 
 	public static function classToFile( $className ) {
-		$parts = explode( '\\', $className );
 
-		$file = strtr(
-			array_pop( $parts ),
+		$classSanitize = strtr(
+			$className,
 			array(
 				'_' => '-'
 			)
 		);
+
+		$classSanitize = strtolower( $classSanitize );
+
+		$parts = explode( '\\', $classSanitize );
+
+		$file = array_pop( $parts );
 
 		$fileDir = strtolower(
 			implode( DIRECTORY_SEPARATOR, $parts )
