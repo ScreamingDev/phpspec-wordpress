@@ -83,12 +83,11 @@ class WpLoader
         if ($this->_collectClasses) {
             $this->_arrLoadedClasses[self::$_scope][] = $class;
         }
-        if ($this->_isIncludePathDefined) {
+
+	    $classFile = str_replace(' ', DIRECTORY_SEPARATOR, ucwords(str_replace('_', ' ', $class)));
+
+	    if ($this->_isIncludePathDefined) {
             $classFile =  COMPILER_INCLUDE_PATH . DIRECTORY_SEPARATOR . $class;
-        } elseif (substr($class, -10) === 'Controller') {
-            return $this->includeController($class);
-        } else {
-            $classFile = str_replace(' ', DIRECTORY_SEPARATOR, ucwords(str_replace('_', ' ', $class)));
         }
 
         $classFile.= '.php';
@@ -97,7 +96,7 @@ class WpLoader
             return include $classFile;
         }
 
-        $classFile = $this->classToFile($class) . '.php';
+        $classFile = ltrim($this->classToFile($class) . '.php', '\\/');
 	    if (stream_resolve_include_path($classFile)) {
 		    return include $classFile;
 	    }
